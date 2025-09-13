@@ -5,7 +5,7 @@ use crate::{
     event::{AnyCb, Event},
     printer::Printer,
     rect::Rect,
-    style::Style,
+    style::{Effect, Style},
     view::{ScrollStrategy, Selector, SizeCache, ViewNotFound},
     with::With,
     Vec2, XY,
@@ -139,7 +139,7 @@ impl Core {
             let lengths = self.scrollbar_thumb_lengths();
             let offsets = self.scrollbar_thumb_offsets(lengths);
 
-            let line_c = XY::new("-", "|");
+            let line_c = XY::new("▒", "▒");
 
             let style = if printer.focused {
                 Style::highlight()
@@ -156,7 +156,9 @@ impl Core {
                         .with_axis(orientation, 0);
                     let offset = orientation.make_vec(offset, 0);
 
-                    printer.print_line(orientation, start, size, c);
+                    printer.with_style(style.combine(Effect::Dim), |printer| {
+                        printer.print_line(orientation, start, size, c);
+                    });
 
                     let thumb_c = if self
                         .thumb_grab

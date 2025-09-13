@@ -41,7 +41,7 @@ impl Button {
     {
         let label = label.into();
         let label: StyledString =
-            StyledString::concatenate([StyledString::plain("<"), label, StyledString::plain(">")]);
+            StyledString::concatenate([StyledString::plain(" "), label, StyledString::plain(" ")]);
 
         Self::new_raw(label, cb)
     }

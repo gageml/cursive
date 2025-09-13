@@ -253,7 +253,7 @@ impl Backend {
         });
     }
 
-    fn stdout_mut(&self) -> RefMut<BufWriter<Stdout>> {
+    fn stdout_mut(&self) -> RefMut<'_, BufWriter<Stdout>> {
         self.stdout.borrow_mut()
     }
 

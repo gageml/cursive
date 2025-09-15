@@ -163,9 +163,15 @@ impl Core {
                         .map(|(o, _)| o == orientation)
                         .unwrap_or(false)
                     {
-                        " "
+                        match orientation {
+                            Orientation::Vertical => " ",
+                            Orientation::Horizontal => "▀",
+                        }
                     } else {
-                        "▒"
+                        match orientation {
+                            Orientation::Vertical => "▒",
+                            Orientation::Horizontal => "🮑",
+                        }
                     };
                     printer.with_style(style, |printer| {
                         printer.print_line(orientation, start + offset, length, thumb_c);
@@ -175,7 +181,7 @@ impl Core {
 
             // Draw the X between the two scrollbars.
             if scrolling.both() {
-                printer.print(printer.size.saturating_sub((1, 1)), "╳");
+                printer.print(printer.size.saturating_sub((1, 1)), " ");
             }
         }
 

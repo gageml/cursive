@@ -129,7 +129,7 @@ impl log::Log for CursiveLogger {
 pub fn init() {
     log::set_max_level((*INT_FILTER_LEVEL.read().unwrap()).max(*EXT_FILTER_LEVEL.read().unwrap()));
     // This will panic if `set_logger` was already called.
-    log::set_logger(&CursiveLogger).unwrap();
+    log::set_logger(&CursiveLogger).expect("log not initialized");
 }
 
 /// Return a logger that stores records in cursive's log queue.

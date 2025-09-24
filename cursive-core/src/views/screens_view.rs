@@ -76,6 +76,17 @@ impl<V> ScreensView<V> {
         }
         self.active_screen = screen_id;
     }
+
+    /// Returns a reference to the specified screen.
+    pub fn get_screen(&self, screen_id: ScreenId) -> Option<&V> {
+        self.screens.get(screen_id)
+    }
+
+    /// Returns a mutable reference to the specifie screen.
+    pub fn get_screen_mut(&mut self, screen_id: ScreenId) -> Option<&mut V> {
+        self.screens.get_mut(screen_id)
+    }
+
 }
 
 impl ScreensView<crate::views::StackView> {

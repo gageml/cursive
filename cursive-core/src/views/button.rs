@@ -39,10 +39,11 @@ impl Button {
         F: 'static + Fn(&mut Cursive) + Send + Sync,
         S: Into<StyledString>,
     {
-        let label = label.into();
-        let label: StyledString =
-            StyledString::concatenate([StyledString::plain(" "), label, StyledString::plain(" ")]);
-
+        let label = StyledString::concatenate([
+            StyledString::plain(" "),
+            label.into(),
+            StyledString::plain(" "),
+        ]);
         Self::new_raw(label, cb)
     }
 
@@ -107,9 +108,14 @@ impl Button {
     /// ```
     pub fn set_label<S>(&mut self, label: S)
     where
-        S: Into<String>,
+        S: Into<StyledString>,
     {
-        self.set_label_raw(format!("<{}>", label.into()));
+        let label: StyledString = StyledString::concatenate([
+            StyledString::plain(" "),
+            label.into(),
+            StyledString::plain(" "),
+        ]);
+        self.set_label_raw(label);
     }
 
     /// Sets the label exactly to the given value.
